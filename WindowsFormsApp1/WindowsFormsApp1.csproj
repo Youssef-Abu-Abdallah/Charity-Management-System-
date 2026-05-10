@@ -68,6 +68,8 @@
     <Compile Include="Models\AdminModels.cs" />
     <Compile Include="Models\AuthModels.cs" />
     <Compile Include="Models\CharityModels.cs" />
+    <Compile Include="Models\CharityNeedDTO.cs" />
+    <Compile Include="Models\CharityNeedRequest.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\GlobalUser.cs" />
     <Compile Include="Services\AdminService.cs" />
@@ -87,6 +89,15 @@
     </Compile>
     <Compile Include="UC_AddNeed.Designer.cs">
       <DependentUpon>UC_AddNeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_MyNeeds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_Profile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_Profile.Designer.cs">
+      <DependentUpon>UC_Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="UC_VerifyUsers.cs">
       <SubType>UserControl</SubType>

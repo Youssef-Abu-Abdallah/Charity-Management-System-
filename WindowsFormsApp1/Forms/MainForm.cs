@@ -9,39 +9,75 @@ namespace WindowsFormsApp1.Forms
     public partial class MainForm : Form
     {
         int role;
+
         public MainForm()
         {
             InitializeComponent();
+
+            if (GlobalUser.CurrentUser == null) return;
+
             role = GlobalUser.CurrentUser.Role;
+
+            // 1. تخصيص الأزرار بناءً على الـ Role
+            SetupRoleUI();
+
+            // 2. ربط الأحداث يدوياً للتأكد أنها تعمل
+            btnNeeds.Click += btnNeeds_GeneralClick;
+
+            // ربط زرار البروفايل (تأكد أن الاسم btnProfile مطابق لاسم الزرار في الـ Designer)
+            btnProfile.Click += btnProfile_Click;
+
+            btnUsers.Click += btnBrowseNeeds_Click;
+        }
+
+
+        private void btnBrowseNeeds_Click(object sender, EventArgs e)
+        {
+            // هنكريت UC_BrowseNeeds في الخطوة الجاية
+            ShowControl(new UC_MyNeeds());
+        }
+        private void SetupRoleUI()
+        {
+            // تغيير النصوص بناءً على الصلاحية
             if (role == 2) // Admin
             {
-                btnNeeds.Text = "   ✔️  توثيق طلبات الحسابات"; // النص المخصص للآدمن
+                btnNeeds.Text = "   ✔️  توثيق طلبات الحسابات";
                 lblUserRole.Text = "الصلاحية: مسؤول النظام";
                 lblUserRole.ForeColor = Color.Gold;
             }
             else if (role == 0) // Charity
             {
-                btnNeeds.Text = "   ➕  إنشاء احتياج جديد"; // النص المخصص للجمعية
+                btnNeeds.Text = "   ➕  إنشاء احتياج جديد";
+                // هنا التعديل اللي طلبته:
+                btnUsers.Text = "   🔍  تصفح احتياجاتي";
+
                 lblUserRole.Text = "الصلاحية: جمعية خيرية";
                 lblUserRole.ForeColor = Color.White;
             }
-            btnNeeds.Click += btnNeeds_GeneralClick;
+            else if (role == 1) // Donor
+            {
+                btnNeeds.Text = "   🎁  تصفح الاحتياجات";
+                lblUserRole.Text = "الصلاحية: جهة متبرعة";
+                lblUserRole.ForeColor = Color.Cyan;
+            }
+
+            // التأكد من نص زر المعلومات
+            btnProfile.Text = "   👤  معلوماتي";
         }
 
-        // هذه الميثود هي التي ستنفذ عند الضغط على الزر
+        // حدث زر معلوماتي
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+            ShowControl(new UC_Profile());
+        }
+
+        // حدث زر المهام (إضافة احتياج أو توثيق)
         private void btnNeeds_GeneralClick(object sender, EventArgs e)
         {
             if (GlobalUser.CurrentUser == null) return;
 
-
-            if (role == 2) // Admin
-            {
-                ShowControl(new UC_VerifyUsers());
-            }
-            else if (role == 0) // Charity
-            {
-                ShowControl(new UC_AddNeed());
-            }
+            if (role == 2) ShowControl(new UC_VerifyUsers());
+            else if (role == 0) ShowControl(new UC_AddNeed());
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -53,63 +89,22 @@ namespace WindowsFormsApp1.Forms
                 return;
             }
 
-            // تحديث البيانات في الواجهة
-            lblUserName.Text = "مرحباً: " + GlobalUser.CurrentUser.UserName.ToString();
+            lblUserName.Text = "مرحباً: " + GlobalUser.CurrentUser.UserName;
 
-            // استدعاء توزيع الصلاحيات
-            ApplyUserPermissions();
+            // عند التحميل، اظهر صفحة البروفايل تلقائياً كصفحة رئيسية
+            ShowControl(new UC_Profile());
         }
-        private void ApplyUserPermissions()
-        {
-            if (GlobalUser.CurrentUser == null) return;
-
-            int userRole = GlobalUser.CurrentUser.Role;
-
-            // حالة مسؤول النظام (Admin)
-            if (userRole == 2)
-            {
-                btnNeeds.Text = "   ✔️  توثيق طلبات الحسابات"; // النص المخصص للآدمن
-                lblUserRole.Text = "الصلاحية: مسؤول النظام";
-                lblUserRole.ForeColor = Color.Gold;
-
-                // فتح شاشة التوثيق فوراً
-                ShowControl(new UC_VerifyUsers());
-            }
-            // حالة الجمعية الخيرية (Charity)
-            else if (userRole == 0)
-            {
-                btnNeeds.Text = "   ➕  إنشاء احتياج جديد"; // النص المخصص للجمعية
-                lblUserRole.Text = "الصلاحية: جمعية خيرية";
-                lblUserRole.ForeColor = Color.White;
-
-                // فتح شاشة إضافة احتياج فوراً
-                ShowControl(new UC_AddNeed());
-            }
-            // حالة المتبرع (Donor) - لو الـ Role بتاعها 1
-            else if (userRole == 1)
-            {
-                btnNeeds.Text = "   🎁  تصفح الاحتياجات";
-                lblUserRole.Text = "الصلاحية: جهة متبرعة";
-                lblUserRole.ForeColor = Color.Cyan;
-            }
-        }
-
-        // أضف هاتين الميثودين داخل كلاس MainForm لضمان سهولة الاستدعاء
-        private void AdminClick(object sender, EventArgs e) => ShowControl(new UC_VerifyUsers());
-        private void CharityClick(object sender, EventArgs e) => ShowControl(new UC_AddNeed());
-
 
         private void ShowControl(UserControl control)
         {
             if (control == null) return;
 
+            // pnlContent هو البانل اللي بيتعرض جواه الـ UserControls
             pnlContent.Controls.Clear();
             control.Dock = DockStyle.Fill;
             pnlContent.Controls.Add(control);
             control.BringToFront();
         }
-
-        // --- حذفنا ميثود btnNeeds_Click القديمة تماماً لأنها كانت تفتح التوثيق إجبارياً ---
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
@@ -121,7 +116,5 @@ namespace WindowsFormsApp1.Forms
             base.OnFormClosing(e);
             Application.Exit();
         }
-
-
     }
 }

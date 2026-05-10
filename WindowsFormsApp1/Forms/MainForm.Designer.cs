@@ -60,7 +60,7 @@ namespace WindowsFormsApp1.Forms
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Panel pnlContent;
         private System.Windows.Forms.Label lblLogo;
-        private System.Windows.Forms.Button btnDashboard;
+        private System.Windows.Forms.Button btnProfile;
         private System.Windows.Forms.Button btnNeeds;
         private System.Windows.Forms.Button btnUsers;
         private System.Windows.Forms.Button btnLogout;
@@ -80,7 +80,7 @@ namespace WindowsFormsApp1.Forms
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.btnNeeds = new System.Windows.Forms.Button();
-            this.btnDashboard = new System.Windows.Forms.Button();
+            this.btnProfile = new System.Windows.Forms.Button();
             this.lblLogo = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblUserRole = new System.Windows.Forms.Label();
@@ -96,7 +96,7 @@ namespace WindowsFormsApp1.Forms
             this.pnlSidebar.Controls.Add(this.btnLogout);
             this.pnlSidebar.Controls.Add(this.btnUsers);
             this.pnlSidebar.Controls.Add(this.btnNeeds);
-            this.pnlSidebar.Controls.Add(this.btnDashboard);
+            this.pnlSidebar.Controls.Add(this.btnProfile);
             this.pnlSidebar.Controls.Add(this.lblLogo);
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
@@ -149,20 +149,20 @@ namespace WindowsFormsApp1.Forms
             this.btnNeeds.Text = "   📦  الاحتياجات";
             this.btnNeeds.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnDashboard
+            // btnProfile
             // 
-            this.btnDashboard.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDashboard.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDashboard.FlatAppearance.BorderSize = 0;
-            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDashboard.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnDashboard.Location = new System.Drawing.Point(0, 0);
-            this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Size = new System.Drawing.Size(260, 60);
-            this.btnDashboard.TabIndex = 3;
-            this.btnDashboard.Text = "   🏠  الرئيسية";
-            this.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnProfile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfile.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnProfile.FlatAppearance.BorderSize = 0;
+            this.btnProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfile.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnProfile.ForeColor = System.Drawing.Color.White;
+            this.btnProfile.Location = new System.Drawing.Point(0, 0);
+            this.btnProfile.Name = "btnProfile";
+            this.btnProfile.Size = new System.Drawing.Size(260, 60);
+            this.btnProfile.TabIndex = 3;
+            this.btnProfile.Text = "   🏠  الرئيسية";
+            this.btnProfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblLogo
             // 
