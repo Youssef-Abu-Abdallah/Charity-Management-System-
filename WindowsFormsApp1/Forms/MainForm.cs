@@ -69,7 +69,8 @@ namespace WindowsFormsApp1.Forms
             btnBrowseOffers.FlatAppearance.BorderSize = 0;
 
             // ربط الضغط بفتح صفحة تصفح التبرعات
-            btnBrowseOffers.Click += (s, e) => {
+            btnBrowseOffers.Click += (s, e) =>
+            {
                 ShowControl(new UC_BrowseOffers());
             };
 
@@ -97,7 +98,8 @@ namespace WindowsFormsApp1.Forms
                 btnSentApps.FlatAppearance.BorderSize = 0;
 
                 // الربط المباشر
-                btnSentApps.Click += (s, e) => {
+                btnSentApps.Click += (s, e) =>
+                {
                     ShowControl(new UC_SentApplications());
                 };
 
@@ -177,7 +179,10 @@ namespace WindowsFormsApp1.Forms
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+            if (MessageBox.Show("هل انت متأكد من الخروج من التطبيق", "تنبيه", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                Application.Restart();
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
