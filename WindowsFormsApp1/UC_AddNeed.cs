@@ -44,7 +44,7 @@ namespace WindowsFormsApp1.Forms
             AddLabelAndControl("الكمية:", txtQuantity = new TextBox { Width = 300 }, startX, startY + (spacing * 2));
             AddLabelAndControl("الوحدة:", cbUnit = new ComboBox { Width = 300, DropDownStyle = ComboBoxStyle.DropDownList }, startX, startY + (spacing * 3));
             AddLabelAndControl("الأولوية:", cbPriority = new ComboBox { Width = 300, DropDownStyle = ComboBoxStyle.DropDownList }, startX, startY + (spacing * 4));
-            AddLabelAndControl("وصف إضافي (اختياري):", txtDescription = new TextBox { Width = 300, Multiline = true, Height = 80  }, startX, startY + (spacing * 5));
+            AddLabelAndControl("وصف إضافي (اختياري):", txtDescription = new TextBox { Width = 300, Multiline = true, Height = 80 }, startX, startY + (spacing * 5));
 
             // الجهة اليسرى (الصورة)
             pbProductImage = new PictureBox { Size = new Size(250, 250), Location = new Point(450, 100), BorderStyle = BorderStyle.FixedSingle, SizeMode = PictureBoxSizeMode.Zoom, BackColor = Color.White };
@@ -123,48 +123,9 @@ namespace WindowsFormsApp1.Forms
             };
 
             // 3. الإرسال عبر الـ Service
-            try
-            {
-                btnSave.Enabled = false;
-                lblStatus.Text = "\nجاري إرسال البيانات للـ API...\n";
 
-                bool success = await _charityService.CreateNeedAsync(need);
-
-                if (success)
-                {
-                    MessageBox.Show("تم إضافة الاحتياج بنجاح وهو الآن بانتظار مراجعة المسؤول", "تمت العملية", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearForm();
-                }
-                else
-                {
-                    MessageBox.Show("فشل إرسال الاحتياج. يرجى التأكد من اتصال الإنترنت أو صلاحية الحساب.", "خطأ في الإرسال", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"حدث خطأ غير متوقع: {ex.Message}", "خطأ نظام", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                btnSave.Enabled = true;
-                lblStatus.Text = "";
-            }
         }
 
-        private void ClearForm()
-        {
-            txtProductName.Clear();
-            txtDescription.Clear();
-            txtQuantity.Clear();
-            if (pbProductImage.Image != null)
-            {
-                pbProductImage.Image.Dispose();
-                pbProductImage.Image = null;
-            }
-            selectedImagePath = "";
-            cbCategory.SelectedIndex = 0;
-            cbUnit.SelectedIndex = 0;
-            cbPriority.SelectedIndex = 0;
-        }
+
     }
 }
