@@ -10,9 +10,6 @@ namespace WindowsFormsApp1.Forms
     {
         int role;
 
-
-        
-
         public MainForm()
         {
             InitializeComponent();
@@ -29,10 +26,10 @@ namespace WindowsFormsApp1.Forms
             // 2. تحسين مظهر الأزرار الحالية مع الحفاظ على ألوانك
             ApplyStyleToExistingButtons();
 
-            // 3. إضافة الزر الجديد برمجياً وتنسيق مكانه
+            // 3. إضافة الأزرار الجديدة برمجياً (تصفح التبرعات + طلباتي المرسلة)
             SetupCustomButtons();
 
-            // ربط الأحداث
+            // ربط الأحداث للأزرار الأساسية
             btnNeeds.Click += btnNeeds_GeneralClick;
             btnProfile.Click += btnProfile_Click;
             btnUsers.Click += btnBrowseNeeds_Click;
@@ -46,7 +43,7 @@ namespace WindowsFormsApp1.Forms
                 if (btn == null) continue;
                 btn.FlatStyle = FlatStyle.Flat;
 
-                // السطر اللي تحت ده هو السر في إلغاء الـ Border
+                // إلغاء الـ Border
                 btn.FlatAppearance.BorderSize = 0;
 
                 btn.Cursor = Cursors.Hand;
@@ -56,7 +53,7 @@ namespace WindowsFormsApp1.Forms
 
         private void SetupCustomButtons()
         {
-            // إنشاء زر "تصفح التبرعات" بدون أي Border
+            // --- 1. إنشاء زر "تصفح التبرعات" ---
             Button btnBrowseOffers = new Button
             {
                 Text = "   🍎  تصفح التبرعات",
@@ -64,38 +61,59 @@ namespace WindowsFormsApp1.Forms
                 Location = new Point(btnUsers.Location.X, btnUsers.Location.Y + btnUsers.Height + 10),
                 BackColor = btnUsers.BackColor,
                 ForeColor = btnUsers.ForeColor,
-                FlatStyle = FlatStyle.Flat, // ضروري لإخفاء التأثيرات الكلاسيكية
+                FlatStyle = FlatStyle.Flat,
                 Font = btnUsers.Font,
                 Cursor = Cursors.Hand,
                 TextAlign = ContentAlignment.MiddleRight
             };
-
-            // إلغاء الـ Border نهائياً
             btnBrowseOffers.FlatAppearance.BorderSize = 0;
 
-            // ربط الزرار بميثود الضغط
+            // ربط الضغط بفتح صفحة تصفح التبرعات
             btnBrowseOffers.Click += (s, e) => {
                 ShowControl(new UC_BrowseOffers());
             };
 
             // إضافته للـ Parent
-            if (btnUsers.Parent != null)
+            if (btnUsers.Parent != null) btnUsers.Parent.Controls.Add(btnBrowseOffers);
+            else this.Controls.Add(btnBrowseOffers);
+
+            btnBrowseOffers.BringToFront();
+
+            // --- 2. إنشاء زر "طلباتي المرسلة" (يظهر فقط إذا كان المستخدم جمعية خيرية) ---
+            if (role == 0) // Charity
             {
-                btnUsers.Parent.Controls.Add(btnBrowseOffers);
-                btnBrowseOffers.BringToFront();
+                Button btnSentApps = new Button
+                {
+                    Text = "   📤  طلباتي المرسلة",
+                    Size = new Size(btnBrowseOffers.Width, btnBrowseOffers.Height),
+                    Location = new Point(btnBrowseOffers.Location.X, btnBrowseOffers.Location.Y + btnBrowseOffers.Height + 10),
+                    BackColor = btnBrowseOffers.BackColor,
+                    ForeColor = btnBrowseOffers.ForeColor,
+                    FlatStyle = FlatStyle.Flat,
+                    Font = btnBrowseOffers.Font,
+                    Cursor = Cursors.Hand,
+                    TextAlign = ContentAlignment.MiddleRight
+                };
+                btnSentApps.FlatAppearance.BorderSize = 0;
+
+                // الربط المباشر
+                btnSentApps.Click += (s, e) => {
+                    ShowControl(new UC_SentApplications());
+                };
+
+                if (btnBrowseOffers.Parent != null) btnBrowseOffers.Parent.Controls.Add(btnSentApps);
+                btnSentApps.BringToFront();
             }
             else
             {
-                this.Controls.Add(btnBrowseOffers);
-                btnBrowseOffers.BringToFront();
-            }
-
-            // تحريك زر الخروج للأسفل
-            if (btnLogout != null)
-            {
-                btnLogout.Location = new Point(btnLogout.Location.X, btnBrowseOffers.Location.Y + btnBrowseOffers.Height + 20);
+                // إذا لم يكن جمعية، اجعل زر الخروج أسفل زر "تصفح التبرعات"
+                if (btnLogout != null)
+                {
+                    btnLogout.Location = new Point(btnLogout.Location.X, btnBrowseOffers.Location.Y + btnBrowseOffers.Height + 20);
+                }
             }
         }
+
 
         private void SetupRoleUI()
         {
@@ -167,7 +185,5 @@ namespace WindowsFormsApp1.Forms
             base.OnFormClosing(e);
             Environment.Exit(0);
         }
-
-        
     }
 }

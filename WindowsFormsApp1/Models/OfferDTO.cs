@@ -35,13 +35,16 @@ namespace WindowsFormsApp1.Models
         public int Status { get; set; }
     }
 
-    public class ApiResponse
+    public class ApiResponse<T>
     {
         [JsonProperty("success")]
         public bool Success { get; set; }
 
-        [JsonProperty("data")]
-        public List<OfferDTO> Data { get; set; }
+        [JsonProperty("data")] // هذا السطر يحل المشكلة!
+        public T Data { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
     }
 
 

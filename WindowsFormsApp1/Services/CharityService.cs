@@ -6,78 +6,46 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp1.Config; // التأكد من استدعاء المكان المخزن فيه التوكن
+using System.Text;
+using System.Linq;
+using WindowsFormsApp1.Config;
 using WindowsFormsApp1.Models;
-
-
-using Newtonsoft.Json; // تأكد من وجود هذا السطر فوق
-using System.Text;     // تأكد من وجود هذا السطر فوق
-
 
 namespace WindowsFormsApp1.Services
 {
     public class CharityService : BaseService
     {
-        /// <summary>
-        /// إرسال احتياج جديد مع صورة للـ API
-        /// </summary>
-        /// <param name="need">كائن يحتوي على بيانات الاحتياج ومسار الصورة</param>
-       
-
+        // 1. جلب الاحتياجات الخاصة بالجمعية
         public async Task<List<CharityNeedDTO>> GetAllNeedsAsync()
         {
             try
             {
-                if (!string.IsNullOrEmpty(AppConfig.AuthToken))
-                {
-                    _client.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
-                }
-
+                SetAuthHeader();
                 var response = await _client.GetAsync("charity/charity-needs");
 
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonString = await response.Content.ReadAsStringAsync();
-
-                    // هنا الحل: بنحول الـ JSON لكائن ديناميكي الأول
-                    var apiResponse = JsonConvert.DeserializeObject<dynamic>(jsonString);
-
-                    // حسب رسالة الخطأ، الـ API بيبعت البيانات جوه خاصية (غالباً اسمها data أو items)
-                    // بناءً على الـ JSON اللي بعته قبل كدة، هنحاول نوصل للـ data
-                    var data = apiResponse.data;
-
-                    // تحويل الجزء الخاص بالبيانات فقط إلى القائمة بتاعتنا
-                    string itemsJson = JsonConvert.SerializeObject(data);
-                    return JsonConvert.DeserializeObject<List<CharityNeedDTO>>(itemsJson);
+                    var apiResponse = JsonConvert.DeserializeObject<ApiResponse<List<CharityNeedDTO>>>(jsonString);
+                    return apiResponse?.Data ?? new List<CharityNeedDTO>();
                 }
-
                 return new List<CharityNeedDTO>();
             }
             catch (Exception ex)
             {
-                // عرض الخطأ بشكل أوضح للمساعدة في التشخيص
-                Console.WriteLine($"Serialization Error: {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
                 return new List<CharityNeedDTO>();
             }
         }
 
-
+        // 2. إنشاء احتياج جديد (مع صورة)
         public async Task<bool> CreateNeedAsync(CreateCharityNeedDTO need)
         {
             try
             {
-                // 1. تجهيز التوكن
-                if (!string.IsNullOrEmpty(AppConfig.AuthToken))
-                {
-                    _client.DefaultRequestHeaders.Authorization =
-                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
-                }
-
-                // 2. استخدام MultipartFormDataContent لأننا نرسل صورة وبيانات
+                SetAuthHeader();
                 using (var content = new MultipartFormDataContent())
                 {
-                    // إضافة الحقول النصية والعددية
                     content.Add(new StringContent(need.ProductName), "ProductName");
                     content.Add(new StringContent(need.Quantity.ToString()), "Quantity");
                     content.Add(new StringContent(need.Category.ToString()), "Category");
@@ -85,22 +53,15 @@ namespace WindowsFormsApp1.Services
                     content.Add(new StringContent(need.Priority.ToString()), "Priority");
                     content.Add(new StringContent(need.Description ?? ""), "Description");
 
-                    // 3. معالجة الصورة (إذا وُجدت)
                     if (!string.IsNullOrEmpty(need.ProductImagePath) && File.Exists(need.ProductImagePath))
                     {
                         var fileStream = new FileStream(need.ProductImagePath, FileMode.Open, FileAccess.Read);
                         var fileContent = new StreamContent(fileStream);
-
-                        // تحديد نوع الملف (اختياري لكن يفضل)
-                        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-
+                        fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
                         content.Add(fileContent, "ProductImage", Path.GetFileName(need.ProductImagePath));
                     }
 
-                    // 4. الإرسال للسيرفر
-                    // الرابط بناءً على ملف الـ JSON هو: api/v1/charity/charity-needs
                     var response = await _client.PostAsync("charity/charity-needs", content);
-
                     return response.IsSuccessStatusCode;
                 }
             }
@@ -111,29 +72,18 @@ namespace WindowsFormsApp1.Services
             }
         }
 
-
-
-
-
+        // 3. تصفح التبرعات المتاحة للجميع
         public async Task<List<OfferDTO>> GetAllOffersAsync()
         {
             try
             {
-                // استبدل الرابط أدناه بالرابط الكامل للسيرفر الخاص بك
-                // جربنا هنا نضع المسار كاملاً لضمان عدم وجود تكرار في api/v1
-                var response = await _client.GetAsync("https://waffer.runasp.net/api/v1/public/offers");
+                var response = await _client.GetAsync("public/offers");
 
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-
-                    // فك التشفير مع تجاهل حالة الأحرف تلقائياً
-                    var apiResult = JsonConvert.DeserializeObject<ApiResponse>(json);
-
-                    if (apiResult != null && apiResult.Data != null && apiResult.Data.Count > 0)
-                    {
-                        return apiResult.Data;
-                    }
+                    var apiResult = JsonConvert.DeserializeObject<ApiResponse<List<OfferDTO>>>(json);
+                    return apiResult?.Data ?? new List<OfferDTO>();
                 }
                 return new List<OfferDTO>();
             }
@@ -144,22 +94,13 @@ namespace WindowsFormsApp1.Services
             }
         }
 
-
-
+        // 4. التقديم على تبرع
         public async Task<bool> ApplyForOfferAsync(string offerId)
         {
             try
             {
-                // التأكد من تحديث التوكن قبل الإرسال
-                if (!string.IsNullOrEmpty(AppConfig.AuthToken))
-                {
-                    _client.DefaultRequestHeaders.Authorization =
-                        new AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
-                }
-
-                // المسار: charity/offers/{offerId}/apply
+                SetAuthHeader();
                 var response = await _client.PostAsync($"charity/offers/{offerId}/apply", null);
-
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -169,40 +110,50 @@ namespace WindowsFormsApp1.Services
             }
         }
 
-
-        public async Task<List<SentApplicationDTO>> GetSentApplicationsAsync()
+        // 5. الميثود المطلوبة: جلب طلباتي التي قدمت عليها (الحل النهائي)
+        public async Task<List<CharityApplicationDTO>> GetMySentApplicationsAsync()
         {
             try
             {
-                if (!string.IsNullOrEmpty(AppConfig.AuthToken))
-                {
-                    _client.DefaultRequestHeaders.Authorization =
-                        new AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
-                }
+                SetAuthHeader();
 
-                // Endpoint: charity/applications/sent
+                // الرابط مأخوذ من ملف الـ OpenAPI الذي أرسلته
                 var response = await _client.GetAsync("charity/applications/sent");
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var jsonString = await response.Content.ReadAsStringAsync();
-                    var apiResponse = JsonConvert.DeserializeObject<dynamic>(jsonString);
+                    string jsonString = await response.Content.ReadAsStringAsync();
 
-                    // استخراج البيانات من حقل data
-                    string itemsJson = JsonConvert.SerializeObject(apiResponse.data);
-                    return JsonConvert.DeserializeObject<List<SentApplicationDTO>>(itemsJson);
+                    // تحويل الـ JSON لكائن مرن (JObject)
+                    var jsonObject = Newtonsoft.Json.Linq.JObject.Parse(jsonString);
+
+                    // استخراج المصفوفة الموجودة داخل حقل "data"
+                    var dataToken = jsonObject["data"];
+
+                    if (dataToken != null && dataToken.Type == Newtonsoft.Json.Linq.JTokenType.Array)
+                    {
+                        // تحويل المصفوفة مباشرة لقائمة من الـ DTO
+                        return dataToken.ToObject<List<CharityApplicationDTO>>();
+                    }
                 }
-                return new List<SentApplicationDTO>();
+                return new List<CharityApplicationDTO>();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching sent applications: {ex.Message}");
-                return new List<SentApplicationDTO>();
+                System.Diagnostics.Debug.WriteLine($"Critical Error: {ex.Message}");
+                return new List<CharityApplicationDTO>();
             }
         }
 
 
-
-
+        // ميثود مساعدة لضبط الهيدر ومنع التكرار
+        private void SetAuthHeader()
+        {
+            if (!string.IsNullOrEmpty(AppConfig.AuthToken))
+            {
+                _client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
+            }
+        }
     }
 }

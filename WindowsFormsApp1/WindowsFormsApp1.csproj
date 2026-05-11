@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Models\AdminModels.cs" />
     <Compile Include="Models\AuthModels.cs" />
+    <Compile Include="Models\CharityApplicationDTO.cs" />
     <Compile Include="Models\CharityModels.cs" />
     <Compile Include="Models\CharityNeedDTO.cs" />
     <Compile Include="Models\CharityNeedRequest.cs" />
@@ -103,6 +104,12 @@
     </Compile>
     <Compile Include="UC_Profile.Designer.cs">
       <DependentUpon>UC_Profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_SentApplications.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_SentApplications.Designer.cs">
+      <DependentUpon>UC_SentApplications.cs</DependentUpon>
     </Compile>
     <Compile Include="UC_VerifyUsers.cs">
       <SubType>UserControl</SubType>
