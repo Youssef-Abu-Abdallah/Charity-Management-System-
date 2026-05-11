@@ -73,6 +73,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\GlobalUser.cs" />
     <Compile Include="Models\OfferDTO.cs" />
+    <Compile Include="Models\SentApplicationDTO.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BaseService.cs" />

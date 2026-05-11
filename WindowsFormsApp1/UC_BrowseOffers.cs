@@ -19,11 +19,9 @@ namespace WindowsFormsApp1.Forms
         {
             _charityService = new CharityService();
             InitializeCustomComponents();
-            // تشغيل جلب البيانات في الخلفية
 
-            
-
-            _ = LoadOffers();
+            // تحميل البيانات عند بدء التشغيل
+            this.Load += async (s, e) => await LoadOffers();
         }
 
         private void InitializeCustomComponents()
@@ -44,52 +42,140 @@ namespace WindowsFormsApp1.Forms
             dgvOffers = new DataGridView
             {
                 Location = new Point(20, 70),
-                Size = new Size(100,100), // تأكد من أن المقاس مناسب للـ Panel
+                Size = new Size(this.Width - 40, this.Height - 100),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 BackgroundColor = Color.White,
                 BorderStyle = BorderStyle.None,
-                ReadOnly = true,
+                ReadOnly = false, // جعلناه false للسماح بالضغط على الأزرار
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 RowHeadersVisible = false,
-                AllowUserToAddRows = false
+                AllowUserToAddRows = false,
+                GridColor = Color.FromArgb(240, 240, 240),
+                EnableHeadersVisualStyles = false
             };
 
-            // أهم خطوة: إضافة العناصر للكنترول نفسه
+            // تنسيق رأس الجدول
+            dgvOffers.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 152, 219);
+            dgvOffers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvOffers.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvOffers.ColumnHeadersHeight = 40;
+
+            // ربط حدث الضغط على الأزرار
+            dgvOffers.CellContentClick += dgvOffers_CellContentClick;
+
             this.Controls.Add(lblTitle);
             this.Controls.Add(dgvOffers);
-
-
-            this.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private async Task LoadOffers()
         {
-            var offers = await _charityService.GetAllOffersAsync();
-
-            if (offers != null && offers.Count > 0)
+            try
             {
-                var displayList = offers.Select(o => new {
-                    o.OfferId,
-                    o.ProductName,
-                    o.DonorOrganizationName,
-                    o.Quantity,
-                    UnitName = GetUnitName(o.Unit), // تحويل الوحدة لنص
-                    CategoryName = GetCategoryName(o.Category), // تحويل القسم لنص
-                    StatusName = GetStatusName(o.Status), // تحويل الحالة لنص
-                                                          // نحتفظ بالأرقام الأصلية مخفية لو احتجناها في العمليات الحسابية
-                    CategoryVal = o.Category,
-                    UnitVal = o.Unit,
-                    StatusVal = o.Status
-                }).ToList();
+                var offers = await _charityService.GetAllOffersAsync();
 
-                dgvOffers.Invoke((MethodInvoker)delegate {
-                    dgvOffers.DataSource = displayList;
-                    FormatGrid();
-                });
+                if (offers != null)
+                {
+                    var displayList = offers.Select(o => new {
+                        o.OfferId,
+                        o.ProductName,
+                        o.DonorOrganizationName,
+                        o.Quantity,
+                        UnitName = GetUnitName(o.Unit),
+                        CategoryName = GetCategoryName(o.Category),
+                        StatusName = GetStatusName(o.Status)
+                    }).ToList();
+
+                    dgvOffers.Invoke((MethodInvoker)delegate {
+                        dgvOffers.DataSource = displayList;
+                        FormatGrid();
+                        AddApplyButton(); // إضافة الزر بعد تعبئة البيانات
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطأ في تحميل البيانات: {ex.Message}");
             }
         }
 
+        private void FormatGrid()
+        {
+            if (dgvOffers.Columns.Contains("OfferId")) dgvOffers.Columns["OfferId"].Visible = false;
+
+            if (dgvOffers.Columns.Contains("ProductName")) dgvOffers.Columns["ProductName"].HeaderText = "اسم المنتج";
+            if (dgvOffers.Columns.Contains("DonorOrganizationName")) dgvOffers.Columns["DonorOrganizationName"].HeaderText = "المؤسسة المتبرعة";
+            if (dgvOffers.Columns.Contains("Quantity")) dgvOffers.Columns["Quantity"].HeaderText = "الكمية";
+            if (dgvOffers.Columns.Contains("UnitName")) dgvOffers.Columns["UnitName"].HeaderText = "الوحدة";
+            if (dgvOffers.Columns.Contains("CategoryName")) dgvOffers.Columns["CategoryName"].HeaderText = "النوع";
+            if (dgvOffers.Columns.Contains("StatusName")) dgvOffers.Columns["StatusName"].HeaderText = "الحالة";
+
+            dgvOffers.RowTemplate.Height = 45;
+
+            // جعل كل الأعمدة قراءة فقط ماعدا عمود الزر
+            foreach (DataGridViewColumn col in dgvOffers.Columns)
+            {
+                if (col.Name != "ApplyButton") col.ReadOnly = true;
+            }
+        }
+
+        private void AddApplyButton()
+        {
+            if (dgvOffers.Columns["ApplyButton"] == null)
+            {
+                DataGridViewButtonColumn applyButton = new DataGridViewButtonColumn();
+                applyButton.Name = "ApplyButton";
+                applyButton.HeaderText = "إجراء";
+                applyButton.Text = "تقديم الآن";
+                applyButton.UseColumnTextForButtonValue = true;
+                applyButton.FlatStyle = FlatStyle.Flat;
+
+                // تنسيق الزر
+                applyButton.DefaultCellStyle.BackColor = Color.FromArgb(46, 204, 113);
+                applyButton.DefaultCellStyle.ForeColor = Color.White;
+                applyButton.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 174, 96);
+
+                dgvOffers.Columns.Add(applyButton);
+            }
+        }
+
+        private async void dgvOffers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // التأكد أن الضغط تم على عمود الزر "ApplyButton"
+            if (e.RowIndex >= 0 && dgvOffers.Columns[e.ColumnIndex].Name == "ApplyButton")
+            {
+                var offerIdValue = dgvOffers.Rows[e.RowIndex].Cells["OfferId"].Value;
+                if (offerIdValue == null) return;
+
+                string offerId = offerIdValue.ToString();
+
+                var confirm = MessageBox.Show("هل أنت متأكد من الرغبة في التقديم على هذا التبرع؟",
+                                            "تأكيد", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    // تعطيل الجدول مؤقتاً لمنع نقرات مزدوجة
+                    dgvOffers.Enabled = false;
+
+                    bool success = await _charityService.ApplyForOfferAsync(offerId);
+
+                    if (success)
+                    {
+                        MessageBox.Show("تم إرسال طلبك بنجاح!", "تم", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("فشل إرسال الطلب. يرجى المحاولة لاحقاً.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    dgvOffers.Enabled = true;
+                }
+            }
+        }
+
+        // --- دوال التحويل المساعدة ---
+
+        // --- دوال التحويل المساعدة بصيغة C# 7.3 المتوافقة مع مشروعك ---
         private string GetUnitName(int unit)
         {
             switch (unit)
@@ -119,7 +205,6 @@ namespace WindowsFormsApp1.Forms
             }
         }
 
-        // دالة بسيطة لتحويل أرقام الأقسام لكلمات
         private string GetCategoryName(int category)
         {
             switch (category)
@@ -131,36 +216,6 @@ namespace WindowsFormsApp1.Forms
                 default: return "أخرى";
             }
         }
-
-        private void FormatGrid()
-        {
-            // تعريب العناوين وتنسيق الأعمدة
-            if (dgvOffers.Columns.Contains("ProductName")) dgvOffers.Columns["ProductName"].HeaderText = "اسم المنتج";
-            if (dgvOffers.Columns.Contains("DonorOrganizationName")) dgvOffers.Columns["DonorOrganizationName"].HeaderText = "المؤسسة المتبرعة";
-            if (dgvOffers.Columns.Contains("Quantity")) dgvOffers.Columns["Quantity"].HeaderText = "الكمية";
-            if (dgvOffers.Columns.Contains("UnitName")) dgvOffers.Columns["UnitName"].HeaderText = "الوحدة";
-            if (dgvOffers.Columns.Contains("CategoryName")) dgvOffers.Columns["CategoryName"].HeaderText = "النوع";
-            if (dgvOffers.Columns.Contains("StatusName")) dgvOffers.Columns["StatusName"].HeaderText = "الحالة";
-
-            // إخفاء الأعمدة اللي الكود بس بيستخدمها
-            string[] hide = { "OfferId", "CategoryVal", "UnitVal", "StatusVal" };
-            foreach (var col in hide)
-            {
-                if (dgvOffers.Columns.Contains(col)) dgvOffers.Columns[col].Visible = false;
-            }
-
-            // --- لمسات التصميم ---
-            dgvOffers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // توزيع الأعمدة بالتساوي
-            dgvOffers.BackgroundColor = Color.White; // لون الخلفية
-            dgvOffers.RowTemplate.Height = 40; // زيادة ارتفاع الصف عشان الخط الكبير
-            dgvOffers.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // تحديد الصف بالكامل
-            dgvOffers.ReadOnly = true; // منع التعديل اليدوي في الجدول
-            dgvOffers.AllowUserToAddRows = false; // منع إضافة صفوف فاضية
-        }
-
-
-
-
 
     }
 }

@@ -145,5 +145,64 @@ namespace WindowsFormsApp1.Services
         }
 
 
+
+        public async Task<bool> ApplyForOfferAsync(string offerId)
+        {
+            try
+            {
+                // التأكد من تحديث التوكن قبل الإرسال
+                if (!string.IsNullOrEmpty(AppConfig.AuthToken))
+                {
+                    _client.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
+                }
+
+                // المسار: charity/offers/{offerId}/apply
+                var response = await _client.PostAsync($"charity/offers/{offerId}/apply", null);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error applying for offer: {ex.Message}");
+                return false;
+            }
+        }
+
+
+        public async Task<List<SentApplicationDTO>> GetSentApplicationsAsync()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(AppConfig.AuthToken))
+                {
+                    _client.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
+                }
+
+                // Endpoint: charity/applications/sent
+                var response = await _client.GetAsync("charity/applications/sent");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var apiResponse = JsonConvert.DeserializeObject<dynamic>(jsonString);
+
+                    // استخراج البيانات من حقل data
+                    string itemsJson = JsonConvert.SerializeObject(apiResponse.data);
+                    return JsonConvert.DeserializeObject<List<SentApplicationDTO>>(itemsJson);
+                }
+                return new List<SentApplicationDTO>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching sent applications: {ex.Message}");
+                return new List<SentApplicationDTO>();
+            }
+        }
+
+
+
+
     }
 }
