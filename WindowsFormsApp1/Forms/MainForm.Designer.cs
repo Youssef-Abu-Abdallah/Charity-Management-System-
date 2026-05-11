@@ -100,8 +100,9 @@ namespace WindowsFormsApp1.Forms
             this.pnlSidebar.Controls.Add(this.lblLogo);
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
+            this.pnlSidebar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Size = new System.Drawing.Size(260, 750);
+            this.pnlSidebar.Size = new System.Drawing.Size(325, 728);
             this.pnlSidebar.TabIndex = 2;
             // 
             // btnLogout
@@ -112,9 +113,10 @@ namespace WindowsFormsApp1.Forms
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
-            this.btnLogout.Location = new System.Drawing.Point(0, 690);
+            this.btnLogout.Location = new System.Drawing.Point(0, 653);
+            this.btnLogout.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(260, 60);
+            this.btnLogout.Size = new System.Drawing.Size(325, 75);
             this.btnLogout.TabIndex = 0;
             this.btnLogout.Text = "   🚪  خروج";
             this.btnLogout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -128,9 +130,10 @@ namespace WindowsFormsApp1.Forms
             this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUsers.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnUsers.ForeColor = System.Drawing.Color.White;
-            this.btnUsers.Location = new System.Drawing.Point(0, 120);
+            this.btnUsers.Location = new System.Drawing.Point(0, 150);
+            this.btnUsers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnUsers.Name = "btnUsers";
-            this.btnUsers.Size = new System.Drawing.Size(260, 60);
+            this.btnUsers.Size = new System.Drawing.Size(325, 75);
             this.btnUsers.TabIndex = 1;
             this.btnUsers.Text = "   👥  المستخدمين";
             this.btnUsers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -142,9 +145,10 @@ namespace WindowsFormsApp1.Forms
             this.btnNeeds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNeeds.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnNeeds.ForeColor = System.Drawing.Color.White;
-            this.btnNeeds.Location = new System.Drawing.Point(0, 60);
+            this.btnNeeds.Location = new System.Drawing.Point(0, 75);
+            this.btnNeeds.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnNeeds.Name = "btnNeeds";
-            this.btnNeeds.Size = new System.Drawing.Size(260, 60);
+            this.btnNeeds.Size = new System.Drawing.Size(325, 75);
             this.btnNeeds.TabIndex = 2;
             this.btnNeeds.Text = "   📦  الاحتياجات";
             this.btnNeeds.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -158,8 +162,9 @@ namespace WindowsFormsApp1.Forms
             this.btnProfile.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnProfile.ForeColor = System.Drawing.Color.White;
             this.btnProfile.Location = new System.Drawing.Point(0, 0);
+            this.btnProfile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnProfile.Name = "btnProfile";
-            this.btnProfile.Size = new System.Drawing.Size(260, 60);
+            this.btnProfile.Size = new System.Drawing.Size(325, 75);
             this.btnProfile.TabIndex = 3;
             this.btnProfile.Text = "   🏠  الرئيسية";
             this.btnProfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -169,8 +174,9 @@ namespace WindowsFormsApp1.Forms
             this.lblLogo.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.lblLogo.ForeColor = System.Drawing.Color.White;
             this.lblLogo.Location = new System.Drawing.Point(0, 0);
+            this.lblLogo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(260, 100);
+            this.lblLogo.Size = new System.Drawing.Size(325, 125);
             this.lblLogo.TabIndex = 4;
             this.lblLogo.Text = "وافر - WAFFER";
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -181,9 +187,11 @@ namespace WindowsFormsApp1.Forms
             this.pnlHeader.Controls.Add(this.lblUserRole);
             this.pnlHeader.Controls.Add(this.lblUserName);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(260, 0);
+            this.pnlHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlHeader.Location = new System.Drawing.Point(325, 0);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(940, 80);
+            this.pnlHeader.Size = new System.Drawing.Size(958, 100);
             this.pnlHeader.TabIndex = 1;
             // 
             // lblUserRole
@@ -191,9 +199,10 @@ namespace WindowsFormsApp1.Forms
             this.lblUserRole.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblUserRole.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblUserRole.ForeColor = System.Drawing.Color.Gray;
-            this.lblUserRole.Location = new System.Drawing.Point(600, 40);
+            this.lblUserRole.Location = new System.Drawing.Point(534, 50);
+            this.lblUserRole.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserRole.Name = "lblUserRole";
-            this.lblUserRole.Size = new System.Drawing.Size(320, 25);
+            this.lblUserRole.Size = new System.Drawing.Size(400, 31);
             this.lblUserRole.TabIndex = 0;
             this.lblUserRole.Text = "الصلاحية: ---";
             this.lblUserRole.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -202,9 +211,10 @@ namespace WindowsFormsApp1.Forms
             // 
             this.lblUserName.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblUserName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblUserName.Location = new System.Drawing.Point(600, 15);
+            this.lblUserName.Location = new System.Drawing.Point(534, 19);
+            this.lblUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(320, 25);
+            this.lblUserName.Size = new System.Drawing.Size(400, 31);
             this.lblUserName.TabIndex = 1;
             this.lblUserName.Text = "مرحباً: جارٍ التحميل...";
             this.lblUserName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -213,20 +223,23 @@ namespace WindowsFormsApp1.Forms
             // 
             this.pnlContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(246)))), ((int)(((byte)(250)))));
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContent.Location = new System.Drawing.Point(260, 80);
+            this.pnlContent.Location = new System.Drawing.Point(325, 100);
+            this.pnlContent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(940, 670);
+            this.pnlContent.Size = new System.Drawing.Size(958, 628);
             this.pnlContent.TabIndex = 0;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 750);
+            this.ClientSize = new System.Drawing.Size(1283, 728);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.pnlSidebar);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Waffer Management System";

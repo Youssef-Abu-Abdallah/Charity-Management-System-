@@ -115,7 +115,34 @@ namespace WindowsFormsApp1.Services
 
 
 
+        public async Task<List<OfferDTO>> GetAllOffersAsync()
+        {
+            try
+            {
+                // استبدل الرابط أدناه بالرابط الكامل للسيرفر الخاص بك
+                // جربنا هنا نضع المسار كاملاً لضمان عدم وجود تكرار في api/v1
+                var response = await _client.GetAsync("https://waffer.runasp.net/api/v1/public/offers");
 
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    // فك التشفير مع تجاهل حالة الأحرف تلقائياً
+                    var apiResult = JsonConvert.DeserializeObject<ApiResponse>(json);
+
+                    if (apiResult != null && apiResult.Data != null && apiResult.Data.Count > 0)
+                    {
+                        return apiResult.Data;
+                    }
+                }
+                return new List<OfferDTO>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("خطأ في الاتصال: " + ex.Message);
+                return new List<OfferDTO>();
+            }
+        }
 
 
     }
