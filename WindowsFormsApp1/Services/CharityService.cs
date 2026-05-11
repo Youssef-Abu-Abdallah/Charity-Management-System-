@@ -63,12 +63,58 @@ namespace WindowsFormsApp1.Services
         }
 
 
-       
+        public async Task<bool> CreateNeedAsync(CreateCharityNeedDTO need)
+        {
+            try
+            {
+                // 1. تجهيز التوكن
+                if (!string.IsNullOrEmpty(AppConfig.AuthToken))
+                {
+                    _client.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AppConfig.AuthToken);
+                }
+
+                // 2. استخدام MultipartFormDataContent لأننا نرسل صورة وبيانات
+                using (var content = new MultipartFormDataContent())
+                {
+                    // إضافة الحقول النصية والعددية
+                    content.Add(new StringContent(need.ProductName), "ProductName");
+                    content.Add(new StringContent(need.Quantity.ToString()), "Quantity");
+                    content.Add(new StringContent(need.Category.ToString()), "Category");
+                    content.Add(new StringContent(need.Unit.ToString()), "Unit");
+                    content.Add(new StringContent(need.Priority.ToString()), "Priority");
+                    content.Add(new StringContent(need.Description ?? ""), "Description");
+
+                    // 3. معالجة الصورة (إذا وُجدت)
+                    if (!string.IsNullOrEmpty(need.ProductImagePath) && File.Exists(need.ProductImagePath))
+                    {
+                        var fileStream = new FileStream(need.ProductImagePath, FileMode.Open, FileAccess.Read);
+                        var fileContent = new StreamContent(fileStream);
+
+                        // تحديد نوع الملف (اختياري لكن يفضل)
+                        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+
+                        content.Add(fileContent, "ProductImage", Path.GetFileName(need.ProductImagePath));
+                    }
+
+                    // 4. الإرسال للسيرفر
+                    // الرابط بناءً على ملف الـ JSON هو: api/v1/charity/charity-needs
+                    var response = await _client.PostAsync("charity/charity-needs", content);
+
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating need: {ex.Message}");
+                return false;
+            }
+        }
 
 
 
 
-    
+
 
 
 
