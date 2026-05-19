@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|e:\\graduationprojectdesktop\\desktop\\charity-management-system-\\windowsformsapp1\\uc_profile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:uc_profile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|e:\\graduationprojectdesktop\\desktop\\charity-management-system-\\windowsformsapp1\\uc_myneeds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:uc_myneeds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|e:\\graduationprojectdesktop\\desktop\\charity-management-system-\\windowsformsapp1\\uc_browseoffers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\uc_browseoffers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:uc_browseoffers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -27,19 +31,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "UC_Profile.cs",
+              "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_Profile.cs",
+              "RelativeDocumentMoniker": "UC_Profile.cs",
+              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_Profile.cs*",
+              "RelativeToolTip": "UC_Profile.cs*",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAowG0AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-19T16:36:59.837Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "UC_MyNeeds.cs",
               "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_MyNeeds.cs",
               "RelativeDocumentMoniker": "UC_MyNeeds.cs",
-              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_MyNeeds.cs*",
-              "RelativeToolTip": "UC_MyNeeds.cs*",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAUwDwAAAALAAAAAAAAAA==",
+              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_MyNeeds.cs",
+              "RelativeToolTip": "UC_MyNeeds.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAUwD0AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-19T16:31:15.543Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UC_BrowseOffers.cs",
               "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_BrowseOffers.cs",
               "RelativeDocumentMoniker": "UC_BrowseOffers.cs",
@@ -47,8 +64,7 @@
               "RelativeToolTip": "UC_BrowseOffers.cs",
               "ViewState": "AgIAAPQAAAAAAAAAAAAiwAIBAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-19T16:22:28.059Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T16:22:28.059Z"
             }
           ]
         }

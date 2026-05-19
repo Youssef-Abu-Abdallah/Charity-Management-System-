@@ -17,7 +17,8 @@ namespace WindowsFormsApp1.Forms
 
         public UC_SentApplications()
         {
-            InitializeComponent(); // هذا السطر مهم جداً لربط ملف الـ Designer
+            // استدعاء الميثود من ملف الـ Designer.cs تلقائياً بدون تكرارها هنا
+            InitializeComponent();
 
             _charityService = new CharityService();
             InitializeCustomComponents();
@@ -29,22 +30,30 @@ namespace WindowsFormsApp1.Forms
         private void InitializeCustomComponents()
         {
             this.Dock = DockStyle.Fill;
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(248, 249, 250); // خلفية رمادية ناعمة وموحدة مع باقي النظام
             this.RightToLeft = RightToLeft.Yes;
+            this.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
 
+            // عنوان الصفحة محاذاته مرنة وديناميكية مع اليمين
             lblTitle = new Label
             {
                 Text = "📤 طلبات التبرع التي قدمت عليها",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                ForeColor = Color.FromArgb(45, 45, 45),
-                Location = new Point(900, 20),
+                ForeColor = Color.FromArgb(43, 54, 116), // الأزرق النيلي الاحترافي المعتمد للهوية
+                Location = new Point(20, 20),
                 AutoSize = true
             };
 
+            // ضبط موقع العنوان ديناميكياً مع تغير حجم الشاشة لضمان ثباته باليمين
+            this.SizeChanged += (s, e) => {
+                lblTitle.Location = new Point(this.Width - lblTitle.Width - 25, 20);
+            };
+
+            // إعداد الجدول بتصميم Flat حديث ونظيف يملأ الشاشة بمرونة
             dgvSentApps = new DataGridView
             {
-                Location = new Point(20, 70),
-                Size = new Size(this.Width - 40, this.Height - 100),
+                Location = new Point(25, 75),
+                Size = new Size(this.Width - 50, this.Height - 110),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 BackgroundColor = Color.White,
@@ -52,8 +61,34 @@ namespace WindowsFormsApp1.Forms
                 ReadOnly = true,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 RowHeadersVisible = false,
-                AllowUserToAddRows = false
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                GridColor = Color.FromArgb(235, 238, 242), // لون شبكة ناعم جداً
+                EnableHeadersVisualStyles = false,
+                RowTemplate = { Height = 45 } // ارتفاع سطر مريح جداً للقراءة
             };
+
+            // تنسيق رأس الجدول (Header) ليعبر عن احترافية البيانات
+            dgvSentApps.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(43, 54, 116);
+            dgvSentApps.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvSentApps.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            dgvSentApps.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvSentApps.ColumnHeadersHeight = 48;
+
+            // تنسيق خلايا البيانات العادية داخل الجدول
+            dgvSentApps.DefaultCellStyle.BackColor = Color.White;
+            dgvSentApps.DefaultCellStyle.ForeColor = Color.FromArgb(45, 55, 72);
+            dgvSentApps.DefaultCellStyle.Font = new Font("Segoe UI", 10F);
+            dgvSentApps.DefaultCellStyle.SelectionBackColor = Color.FromArgb(232, 244, 253); // تظليل أزرق خفيف عند التحديد
+            dgvSentApps.DefaultCellStyle.SelectionForeColor = Color.FromArgb(43, 54, 116);
+            dgvSentApps.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // تفعيل ميزة الأسطر التبادلية لمنع تداخل الأسطر أثناء المراجعة
+            dgvSentApps.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(252, 253, 254);
+
+            // ربط حدث اكتمال ربط البيانات لتلوين الحالات تلقائياً
+            dgvSentApps.DataBindingComplete += dgvSentApps_DataBindingComplete;
 
             this.Controls.Add(lblTitle);
             this.Controls.Add(dgvSentApps);
@@ -63,25 +98,21 @@ namespace WindowsFormsApp1.Forms
         {
             try
             {
-                // 1. تنبيه للتأكد أن الميثود بدأت
-                Console.WriteLine("بدء جلب البيانات...");
-
                 var apps = await _charityService.GetMySentApplicationsAsync();
 
-                // 2. فحص هل الداتا رجعت فاضية؟
                 if (apps == null)
                 {
-                    MessageBox.Show("السيرفر لم يرسل أي بيانات (Null)");
+                    MessageBox.Show("السيرفر لم يرسل أي بيانات (Null)", "تنبيه النظام", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (apps.Count == 0)
                 {
-                    MessageBox.Show("لا يوجد لديك أي طلبات مرسلة حتى الآن.");
+                    MessageBox.Show("لا يوجد لديك أي طلبات مرسلة حتى الآن.", "ملاحظة", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                // 3. لو في داتا، هنعرضها
+                // تحضير البيانات للعرض بشكل منظم وتاريخ منسق
                 var displayList = apps.Select(a => new {
                     a.ProductName,
                     a.DonorOrganizationName,
@@ -93,45 +124,78 @@ namespace WindowsFormsApp1.Forms
                 }).ToList();
 
                 dgvSentApps.Invoke((MethodInvoker)delegate {
+                    dgvSentApps.DataSource = null; // تنظيف دائم لمنع التداخل
                     dgvSentApps.DataSource = displayList;
                     FormatGrid();
-                    dgvSentApps.Visible = true; // نأكد إن الجدول ظاهر
-                    dgvSentApps.BringToFront(); // نأكد إنه مش مستخبي ورا حاجة
+                    dgvSentApps.Visible = true;
+                    dgvSentApps.BringToFront();
                 });
             }
             catch (Exception ex)
             {
-                // 4. لو في خطأ في الكود هيظهر هنا
-                MessageBox.Show("حدث خطأ تقني: " + ex.Message);
+                MessageBox.Show("حدث خطأ تقني أثناء تحميل الطلبات: " + ex.Message, "خطأ نظام", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void FormatGrid()
         {
-            // تعريب رؤوس الأعمدة
-            if (dgvSentApps.Columns.Contains("ProductName")) dgvSentApps.Columns["ProductName"].HeaderText = "اسم المنتج";
-            if (dgvSentApps.Columns.Contains("DonorOrganizationName")) dgvSentApps.Columns["DonorOrganizationName"].HeaderText = "الجهة المتبرعة";
-            if (dgvSentApps.Columns.Contains("Quantity")) dgvSentApps.Columns["Quantity"].HeaderText = "الكمية";
-            if (dgvSentApps.Columns.Contains("UnitName")) dgvSentApps.Columns["UnitName"].HeaderText = "الوحدة";
-            if (dgvSentApps.Columns.Contains("StatusName")) dgvSentApps.Columns["StatusName"].HeaderText = "الحالة";
-            if (dgvSentApps.Columns.Contains("Date")) dgvSentApps.Columns["Date"].HeaderText = "تاريخ التقديم";
-            if (dgvSentApps.Columns.Contains("Phone")) dgvSentApps.Columns["Phone"].HeaderText = "التواصل";
+            if (dgvSentApps.Columns.Count == 0) return;
 
-            // تنسيق شكل الجدول
-            dgvSentApps.RowTemplate.Height = 40;
-            dgvSentApps.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 152, 219); // لون أزرق احترافي
-            dgvSentApps.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvSentApps.EnableHeadersVisualStyles = false;
+            // تعريب وتنسيق مسميات رؤوس الأعمدة بدقة
+            if (dgvSentApps.Columns.Contains("ProductName")) dgvSentApps.Columns["ProductName"].HeaderText = "اسم المنتج المطلق";
+            if (dgvSentApps.Columns.Contains("DonorOrganizationName")) dgvSentApps.Columns["DonorOrganizationName"].HeaderText = "الجهة المتبرعة المانحة";
+            if (dgvSentApps.Columns.Contains("Quantity")) dgvSentApps.Columns["Quantity"].HeaderText = "الكمية المحجوزة";
+            if (dgvSentApps.Columns.Contains("UnitName")) dgvSentApps.Columns["UnitName"].HeaderText = "الوحدة";
+            if (dgvSentApps.Columns.Contains("StatusName")) dgvSentApps.Columns["StatusName"].HeaderText = "حالة الطلب الحالية";
+            if (dgvSentApps.Columns.Contains("Date")) dgvSentApps.Columns["Date"].HeaderText = "تاريخ التقديم";
+            if (dgvSentApps.Columns.Contains("Phone")) dgvSentApps.Columns["Phone"].HeaderText = "أرقام التواصل للجهة";
         }
 
-        // دوال التحويل المتوافقة مع C# 7.3
+        // تلوين ذكي واحترافي لعمود الحالة يعطي انطباعاً وتفاعلاً رائعاً للمستخدم
+        private void dgvSentApps_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (!dgvSentApps.Columns.Contains("StatusName")) return;
+
+            foreach (DataGridViewRow row in dgvSentApps.Rows)
+            {
+                var cell = row.Cells["StatusName"];
+                if (cell.Value != null)
+                {
+                    string status = cell.Value.ToString();
+
+                    if (status.Contains("تم القبول") || status.Contains("تم الاستلام"))
+                    {
+                        cell.Style.ForeColor = Color.FromArgb(39, 174, 96); // لون أخضر مريح ومبهج
+                        cell.Style.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                    }
+                    else if (status.Contains("قيد الانتظار"))
+                    {
+                        cell.Style.ForeColor = Color.FromArgb(230, 126, 34); // لون برتقالي دلالي ممتاز
+                        cell.Style.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                    }
+                    else if (status.Contains("مرفوض"))
+                    {
+                        cell.Style.ForeColor = Color.FromArgb(192, 57, 43); // لون أحمر صريح للرفض
+                        cell.Style.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                    }
+                }
+            }
+        }
+
+        // دوال التحويل المتوافقة مع بنية قاعدة البيانات لديك ومعدلة لتدعم الحالات المتنوعة
         private string GetUnitName(int unit)
         {
             switch (unit)
             {
-                case 8: return "قطعة";
+                case 0: return "طن";
                 case 1: return "كيلو جرام";
+                case 2: return "جرام";
+                case 3: return "لتر";
+                case 4: return "ملي لتر";
+                case 5: return "عبوة";
                 case 6: return "صندوق";
+                case 7: return "علبة";
+                case 8: return "قطعة";
                 default: return "وحدة";
             }
         }
@@ -147,7 +211,5 @@ namespace WindowsFormsApp1.Forms
                 default: return "غير محدد";
             }
         }
-
-
     }
 }
