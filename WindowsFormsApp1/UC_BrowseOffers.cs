@@ -35,7 +35,7 @@ namespace WindowsFormsApp1.Forms
                 Text = "🍎 التبرعات المتاحة من المؤسسات",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 ForeColor = Color.FromArgb(45, 45, 45),
-                Location = new Point(20, 20),
+                Location = new Point(1020, 20),
                 AutoSize = true
             };
 

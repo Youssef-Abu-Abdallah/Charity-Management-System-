@@ -31,21 +31,21 @@ namespace WindowsFormsApp1.Forms
             {
                 Text = "📋 قائمة احتياجاتي المرفوعة",
                 Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                Location = new Point(20, 20),
+                Location = new Point(1020, 20),
                 AutoSize = true
             };
 
             lblLoading = new Label
             {
                 Text = "جاري جلب البيانات...",
-                Location = new Point(25, 60),
+                Location = new Point(625, 60),
                 AutoSize = true,
                 Visible = false
             };
 
             dgvMyNeeds = new DataGridView
             {
-                Location = new Point(20, 90),
+                Location = new Point(680, 90),
                 Size = new Size(850, 480), // رجعنا الحجم كبير لأن مفيش أزرار
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 BackgroundColor = Color.White,
@@ -54,7 +54,8 @@ namespace WindowsFormsApp1.Forms
                 AllowUserToAddRows = false,
                 RowHeadersVisible = false,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                RowTemplate = { Height = 35 }
+                RowTemplate = { Height = 35 },
+                RightToLeft = RightToLeft.Yes
             };
 
             this.Controls.Add(lblTitle);
@@ -89,6 +90,18 @@ namespace WindowsFormsApp1.Forms
             if (dgvMyNeeds.Columns.Contains("quantity")) dgvMyNeeds.Columns["quantity"].HeaderText = "الكمية";
             if (dgvMyNeeds.Columns.Contains("الوحدة")) dgvMyNeeds.Columns["الوحدة"].HeaderText = "الوحدة";
             if (dgvMyNeeds.Columns.Contains("حالة_الطلب")) dgvMyNeeds.Columns["حالة_الطلب"].HeaderText = "الحالة";
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // UC_MyNeeds
+            // 
+            this.Name = "UC_MyNeeds";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ResumeLayout(false);
+
         }
     }
 }

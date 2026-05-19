@@ -9,10 +9,7 @@ namespace WindowsFormsApp1.Forms
     {
         public UC_Profile()
         {
-            // استدعاء ميثود الـ Designer الأساسية
-            //InitializeComponent();
-
-            // استدعاء ميثود التصميم البرمجي الخاصة بنا
+            
             SetupProfileUI();
         }
 
@@ -30,9 +27,11 @@ namespace WindowsFormsApp1.Forms
             {
                 Text = "👤 معلوماتي الشخصية",
                 Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                Location = new Point(20, 20),
+                Location = new Point(1250, 20),
                 AutoSize = true,
-                ForeColor = Color.DarkSlateBlue
+                ForeColor = Color.DarkSlateBlue,
+                RightToLeft = RightToLeft.Yes,
+                
             };
 
             int startY = 100;
@@ -41,12 +40,15 @@ namespace WindowsFormsApp1.Forms
             AddInfoLabel("نوع الحساب:", GetRoleName(user.Role), startY + 160);
 
             this.Controls.Add(lblTitle);
+            
         }
 
         private void AddInfoLabel(string title, string value, int y)
         {
-            Label lblT = new Label { Text = title, Location = new Point(20, y), Font = new Font("Segoe UI", 10, FontStyle.Bold), AutoSize = true };
-            Label lblV = new Label { Text = value ?? "غير متوفر", Location = new Point(20, y + 30), Font = new Font("Segoe UI", 12), AutoSize = true, ForeColor = Color.FromArgb(64, 64, 64) };
+            Label lblT = new Label { Text = title, Location = new Point(1450, y), Font = new Font("Segoe UI", 12, FontStyle.Bold), AutoSize = true };
+            Label lblV = new Label { Text = value ?? "غير متوفر", Location = new Point(1290, y ), Font = new Font("Segoe UI", 12), AutoSize = true, ForeColor = Color.FromArgb(64, 64, 64) };
+
+            
 
             this.Controls.Add(lblT);
             this.Controls.Add(lblV);

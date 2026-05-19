@@ -16,6 +16,7 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
+            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
             // UC_Profile
             // 
@@ -24,6 +25,7 @@
             this.Name = "UC_Profile";
             this.Size = new System.Drawing.Size(800, 600);
             this.ResumeLayout(false);
+            
         }
     }
 }

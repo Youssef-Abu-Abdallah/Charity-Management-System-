@@ -15,6 +15,8 @@ namespace WindowsFormsApp1.Forms
             InitializeComponent();
 
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.RightToLeft = RightToLeft.Yes;
+            this.RightToLeftLayout = true;
 
             if (GlobalUser.CurrentUser == null) return;
 

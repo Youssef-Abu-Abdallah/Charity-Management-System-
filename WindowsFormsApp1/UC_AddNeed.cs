@@ -33,9 +33,9 @@ namespace WindowsFormsApp1.Forms
             this.BackColor = Color.FromArgb(245, 245, 245);
             this.RightToLeft = RightToLeft.Yes;
 
-            Label lblTitle = new Label { Text = "إضافة احتياج جديد", Font = new Font("Segoe UI", 18, FontStyle.Bold), Location = new Point(20, 20), AutoSize = true };
+            Label lblTitle = new Label { Text = "إضافة احتياج جديد", Font = new Font("Segoe UI", 18, FontStyle.Bold), Location = new Point(1020, 20), AutoSize = true };
 
-            int startX = 20, startY = 80, spacing = 60;
+            int startX = 750, startY = 80, spacing = 60;
 
             AddLabelAndControl("اسم المنتج:", txtProductName = new TextBox { Width = 300 }, startX, startY);
             AddLabelAndControl("القسم:", cbCategory = new ComboBox { Width = 300, DropDownStyle = ComboBoxStyle.DropDownList }, startX, startY + spacing);
@@ -44,13 +44,13 @@ namespace WindowsFormsApp1.Forms
             AddLabelAndControl("الأولوية:", cbPriority = new ComboBox { Width = 300, DropDownStyle = ComboBoxStyle.DropDownList }, startX, startY + (spacing * 4));
             AddLabelAndControl("وصف إضافي (اختياري):", txtDescription = new TextBox { Width = 300, Multiline = true, Height = 80 }, startX, startY + (spacing * 5));
 
-            pbProductImage = new PictureBox { Size = new Size(250, 250), Location = new Point(450, 100), BorderStyle = BorderStyle.FixedSingle, SizeMode = PictureBoxSizeMode.Zoom, BackColor = Color.White };
-            btnSelectImage = new Button { Text = "اختر صورة المنتج", Location = new Point(450, 360), Size = new Size(250, 40), BackColor = Color.Gray, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Cursor = Cursors.Hand };
+            pbProductImage = new PictureBox { Size = new Size(250, 250), Location = new Point(1120, 100), BorderStyle = BorderStyle.FixedSingle, SizeMode = PictureBoxSizeMode.Zoom, BackColor = Color.White };
+            btnSelectImage = new Button { Text = "اختر صورة المنتج", Location = new Point(1120, 360), Size = new Size(250, 40), BackColor = Color.Gray, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Cursor = Cursors.Hand };
             btnSelectImage.Click += BtnSelectImage_Click;
 
             lblStatus = new Label { Text = "", Location = new Point(20, 475), AutoSize = true, ForeColor = Color.Blue };
 
-            btnSave = new Button { Text = "حفظ وإرسال الاحتياج", Location = new Point(20, 500), Size = new Size(680, 50), BackColor = Color.ForestGreen, ForeColor = Color.White, Font = new Font("Segoe UI", 12, FontStyle.Bold), FlatStyle = FlatStyle.Flat, Cursor = Cursors.Hand };
+            btnSave = new Button { Text = "حفظ وإرسال الاحتياج", Location = new Point(750, 500), Size = new Size(680, 50), BackColor = Color.ForestGreen, ForeColor = Color.White, Font = new Font("Segoe UI", 12, FontStyle.Bold), FlatStyle = FlatStyle.Flat, Cursor = Cursors.Hand };
             btnSave.Click += BtnSave_Click;
 
             this.Controls.Add(lblTitle);
