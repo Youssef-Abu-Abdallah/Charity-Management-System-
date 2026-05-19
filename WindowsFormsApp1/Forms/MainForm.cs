@@ -100,14 +100,16 @@ namespace WindowsFormsApp1.Forms
                 btnSentApps.Click += (s, e) => ShowControl(new UC_SentApplications());
                 pnlSidebarFlow.Controls.Add(btnSentApps);
                 btnSentApps.BringToFront();
+
+
+                // 4. تصفح عروض التبرعات المتاحة (زر ديناميكي مشترك لجميع الحسابات)
+                Button btnBrowseOffers = new Button { Text = "   🍎   تصفح التبرعات المتاحة" };
+                FormatSingleButton(btnBrowseOffers);
+                btnBrowseOffers.Click += (s, e) => ShowControl(new UC_BrowseOffers());
+                pnlSidebarFlow.Controls.Add(btnBrowseOffers);
+                btnBrowseOffers.BringToFront();
             }
 
-            // 4. تصفح عروض التبرعات المتاحة (زر ديناميكي مشترك لجميع الحسابات)
-            Button btnBrowseOffers = new Button { Text = "   🍎   تصفح التبرعات المتاحة" };
-            FormatSingleButton(btnBrowseOffers);
-            btnBrowseOffers.Click += (s, e) => ShowControl(new UC_BrowseOffers());
-            pnlSidebarFlow.Controls.Add(btnBrowseOffers);
-            btnBrowseOffers.BringToFront();
 
             // 3. عرض الاحتياجات المرفوعة التي قمت بعملها (تظهر فقط للجمعية الخيرية)
             if (btnUsers != null)
