@@ -18,11 +18,12 @@ namespace WindowsFormsApp1.Forms
         private ComboBox cbCategory, cbUnit, cbPriority;
         private PictureBox pbProductImage;
         private Button btnSelectImage, btnSave;
-        private Label lblStatus;
+        private Label lblStatus; // تم تأمين بنائه برمجياً لمنع الـ NullReferenceException
         private Panel mainContainer; // الحاوية الرئيسية (البطاقة البيضاء)
 
         public UC_AddNeed()
         {
+            InitializeComponent(); // استدعاء الدالة الافتراضية للـ Designer إن وجدت
             _charityService = new CharityService();
             InitializeCustomComponents();
             LoadEnums();
@@ -32,15 +33,15 @@ namespace WindowsFormsApp1.Forms
         {
             // إعدادات الـ UserControl الرئيسية
             this.Dock = DockStyle.Fill;
-            this.BackColor = Color.FromArgb(240, 242, 245); // خلفية رمادية ناعمة وعصرية (مثل فيسبوك وويب 3)
+            this.BackColor = Color.FromArgb(240, 242, 245);
             this.RightToLeft = RightToLeft.Yes;
             this.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
 
             // إنشاء الحاوية المركزية بأبعاد مدروسة ومضمونة الاستجابة
             mainContainer = new Panel
             {
-                Size = new Size(880, 660), // تم زيادة الطول والعرض لاستيعاب العناصر بمرونة
-                BackColor = Color.White,   // شكل البطاقة النظيفة Card Design
+                Size = new Size(880, 660),
+                BackColor = Color.White,
                 BorderStyle = BorderStyle.None
             };
 
@@ -55,7 +56,7 @@ namespace WindowsFormsApp1.Forms
             {
                 Text = "إضافة احتياج جديد",
                 Font = new Font("Segoe UI", 20, FontStyle.Bold),
-                ForeColor = Color.FromArgb(43, 54, 116), // أزرق نيلي فخم
+                ForeColor = Color.FromArgb(43, 54, 116),
                 Location = new Point(620, 25),
                 AutoSize = true
             };
@@ -65,7 +66,7 @@ namespace WindowsFormsApp1.Forms
             int startX = 500;
             int startY = 100;
             int spacing = 75;
-            int controlWidth = 330; // عرض مريح وموحد للصناديق
+            int controlWidth = 330;
 
             // الحقول النصية والقوائم المنسدلة بتصميم Flat ناعم
             AddLabelAndControl("اسم المنتج أو الغرض *", txtProductName = new TextBox { Width = controlWidth, Font = new Font("Segoe UI", 11) }, startX, startY);
@@ -93,7 +94,7 @@ namespace WindowsFormsApp1.Forms
 
             pbProductImage = new PictureBox
             {
-                Size = new Size(400, 250), // مساحة عرض الصورة ممتازة الآن
+                Size = new Size(400, 250),
                 Location = new Point(imageX, startY),
                 BorderStyle = BorderStyle.FixedSingle,
                 SizeMode = PictureBoxSizeMode.Zoom,
@@ -105,7 +106,7 @@ namespace WindowsFormsApp1.Forms
                 Text = "📁 تصفح واختيار صورة للمنتج",
                 Location = new Point(imageX, startY + 265),
                 Size = new Size(400, 40),
-                BackColor = Color.FromArgb(52, 152, 219), // أزرق مودرن مريح
+                BackColor = Color.FromArgb(52, 152, 219),
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 FlatStyle = FlatStyle.Flat,
@@ -117,16 +118,27 @@ namespace WindowsFormsApp1.Forms
             mainContainer.Controls.Add(pbProductImage);
             mainContainer.Controls.Add(btnSelectImage);
 
-           
-            // --- زر الحفظ الاحترافي (كبير وبارز ويمتد على كامل العرض السفلي) ---
+            // --- إصلاح وحقن الـ lblStatus برمجياً في الواجهة تفادياً للانهيار ---
+            lblStatus = new Label
+            {
+                Text = "",
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                Location = new Point(50, 560),
+                Size = new Size(780, 25),
+                TextAlign = ContentAlignment.MiddleLeft,
+                ForeColor = Color.DimGray
+            };
+            mainContainer.Controls.Add(lblStatus);
+
+            // --- زر الحفظ الاحترافي ---
             btnSave = new Button
             {
                 Text = "💾 حفظ وإرسال طلب الاحتياج للمراجعة",
-                Location = new Point(50, 590), // موقعه في أسفل الكارد الأبيض تماماً
-                Size = new Size(780, 50),     // عرض ضخم وارتفاع مريح جداً للضغط
-                BackColor = Color.FromArgb(46, 204, 113), // أخضر مبهج واحترافي للعمليات الناجحة
+                Location = new Point(50, 590),
+                Size = new Size(780, 50),
+                BackColor = Color.FromArgb(46, 204, 113),
                 ForeColor = Color.White,
-                Font = new Font("Segoe UI", 13, FontStyle.Bold), // خط عريض وواضح
+                Font = new Font("Segoe UI", 13, FontStyle.Bold),
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
@@ -137,7 +149,6 @@ namespace WindowsFormsApp1.Forms
 
         private void AddLabelAndControl(string text, Control ctrl, int x, int y)
         {
-            // عنوان الحقل بلون داكن أنيق
             Label lbl = new Label
             {
                 Text = text,
@@ -154,9 +165,7 @@ namespace WindowsFormsApp1.Forms
             ctrl.Location = new Point(x, y + 25);
             mainContainer.Controls.Add(lbl);
 
-            // ضبط محاذاة النص تلقائياً ليبدأ مع حافة الصندوق من جهة اليمين تماماً (RTL الصحيح)
             lbl.Location = new Point(x + ctrl.Width - lbl.Width, y);
-
             mainContainer.Controls.Add(ctrl);
         }
 
@@ -194,14 +203,19 @@ namespace WindowsFormsApp1.Forms
                 return;
             }
 
+            // تكتيك آمن: استخراج القيم الرقمية الصافية من الـ ComboBox المرتبط بـ Enum بدون مشاكل الـ Casting
+            int selectedCategory = (int)Enum.Parse(typeof(ProductCategory), cbCategory.SelectedItem.ToString());
+            int selectedUnit = (int)Enum.Parse(typeof(MeasurementUnit), cbUnit.SelectedItem.ToString());
+            int selectedPriority = (int)Enum.Parse(typeof(CharityNeedPriority), cbPriority.SelectedItem.ToString());
+
             var need = new CreateCharityNeedDTO
             {
                 ProductName = txtProductName.Text.Trim(),
                 Description = txtDescription.Text.Trim(),
                 Quantity = quantityValue,
-                Category = (int)cbCategory.SelectedValue,
-                Unit = (int)cbUnit.SelectedValue,
-                Priority = (int)cbPriority.SelectedValue,
+                Category = selectedCategory,
+                Unit = selectedUnit,
+                Priority = selectedPriority,
                 ProductImagePath = selectedImagePath
             };
 
@@ -209,21 +223,21 @@ namespace WindowsFormsApp1.Forms
             {
                 btnSave.Enabled = false;
                 lblStatus.Text = "⏳ جاري إرسال البيانات إلى السيرفر بآمان...";
-                lblStatus.ForeColor = Color.FromArgb(230, 126, 34); // برتقالي أثناء الرفع
+                lblStatus.ForeColor = Color.FromArgb(230, 126, 34);
 
                 bool success = await _charityService.CreateNeedAsync(need);
 
                 if (success)
                 {
                     lblStatus.Text = "✅ تم إرسال الطلب بنجاح وهو بانتظار موافقة الإدارة";
-                    lblStatus.ForeColor = Color.FromArgb(39, 174, 96); // أخضر للنجاح
+                    lblStatus.ForeColor = Color.FromArgb(39, 174, 96);
                     MessageBox.Show("تمت إضافة الاحتياج بنجاح ويتم انتظار موافقة المسؤول!", "نجاح العملية", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClearForm();
                 }
                 else
                 {
                     lblStatus.Text = "❌ فشل الإرسال، يرجى التحقق من الاتصال والمحاولة لاحقاً";
-                    lblStatus.ForeColor = Color.FromArgb(192, 57, 43); // أحمر للفشل
+                    lblStatus.ForeColor = Color.FromArgb(192, 57, 43);
                 }
             }
             catch (Exception ex)
@@ -242,16 +256,17 @@ namespace WindowsFormsApp1.Forms
             txtDescription.Clear();
             txtQuantity.Clear();
             selectedImagePath = "";
+
             if (pbProductImage.Image != null)
             {
-                pbProductImage.Image.Dispose();
-                pbProductImage.Image = null;
+                var img = pbProductImage.Image;
+                pbProductImage.Image = null; // فك ارتباط الصورة أولاً بالـ Control لمنع التجميد البصري
+                img.Dispose();
             }
-            cbCategory.SelectedIndex = 0;
-            cbUnit.SelectedIndex = 0;
-            cbPriority.SelectedIndex = 0;
 
-
+            if (cbCategory.Items.Count > 0) cbCategory.SelectedIndex = 0;
+            if (cbUnit.Items.Count > 0) cbUnit.SelectedIndex = 0;
+            if (cbPriority.Items.Count > 0) cbPriority.SelectedIndex = 0;
         }
     }
 }
