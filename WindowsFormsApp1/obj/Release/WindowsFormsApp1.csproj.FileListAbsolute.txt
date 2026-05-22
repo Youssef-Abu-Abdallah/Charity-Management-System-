@@ -1,0 +1,16 @@
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe.config
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\bin\Release\WindowsFormsApp1.pdb
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\bin\Release\Newtonsoft.Json.dll
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\bin\Release\Newtonsoft.Json.xml
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.csproj.AssemblyReference.cache
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Forms.LoginForm.resources
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Forms.MainForm.resources
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Splash.resources
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Properties.Resources.resources
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Forms.UC_MyNeeds.resources
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.csproj.GenerateResource.cache
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsF.A1EEDF9B.Up2Date
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.exe
+E:\GraduationProjectDesktop\Desktop\Charity-Management-System-\WindowsFormsApp1\obj\Release\WindowsFormsApp1.pdb

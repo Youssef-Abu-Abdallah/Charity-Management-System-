@@ -3,11 +3,27 @@
   "WorkspaceRootPath": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|e:\\graduationprojectdesktop\\desktop\\charity-management-system-\\windowsformsapp1\\forms\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:forms\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|e:\\graduationprojectdesktop\\desktop\\charity-management-system-\\windowsformsapp1\\uc_sentapplications.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:uc_sentapplications.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|e:\\graduationprojectdesktop\\desktop\\charity-management-system-\\windowsformsapp1\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\uc_myneeds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:uc_myneeds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\uc_browseoffers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:uc_browseoffers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\models\\charityneeddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:models\\charityneeddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E0C1DC72-1551-439D-81E9-220814925BDC}|WindowsFormsApp1.csproj|solutionrelative:forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -27,28 +43,75 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LoginForm.cs",
-              "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Forms\\LoginForm.cs",
-              "RelativeDocumentMoniker": "Forms\\LoginForm.cs",
-              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Forms\\LoginForm.cs",
-              "RelativeToolTip": "Forms\\LoginForm.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAawCcAAAA4AAAAAAAAAA==",
+              "Title": "UC_SentApplications.cs",
+              "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_SentApplications.cs",
+              "RelativeDocumentMoniker": "UC_SentApplications.cs",
+              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_SentApplications.cs",
+              "RelativeToolTip": "UC_SentApplications.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAE4AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-19T18:14:50.771Z",
+              "WhenOpened": "2026-05-22T19:27:40.204Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "UC_MyNeeds.cs",
+              "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_MyNeeds.cs",
+              "RelativeDocumentMoniker": "UC_MyNeeds.cs",
+              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_MyNeeds.cs",
+              "RelativeToolTip": "UC_MyNeeds.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAAFcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T19:27:39.012Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UC_BrowseOffers.cs",
+              "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_BrowseOffers.cs",
+              "RelativeDocumentMoniker": "UC_BrowseOffers.cs",
+              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\UC_BrowseOffers.cs",
+              "RelativeToolTip": "UC_BrowseOffers.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAEsAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T19:27:35.449Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CharityNeedDTO.cs",
+              "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Models\\CharityNeedDTO.cs",
+              "RelativeDocumentMoniker": "Models\\CharityNeedDTO.cs",
+              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Models\\CharityNeedDTO.cs",
+              "RelativeToolTip": "Models\\CharityNeedDTO.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAuwDkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T19:27:15.656Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Enums.cs",
+              "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Models\\Enums.cs",
+              "RelativeDocumentMoniker": "Models\\Enums.cs",
+              "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Models\\Enums.cs",
+              "RelativeToolTip": "Models\\Enums.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T19:26:40.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "MainForm.cs",
               "DocumentMoniker": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Forms\\MainForm.cs",
               "RelativeDocumentMoniker": "Forms\\MainForm.cs",
               "ToolTip": "E:\\GraduationProjectDesktop\\Desktop\\Charity-Management-System-\\WindowsFormsApp1\\Forms\\MainForm.cs",
               "RelativeToolTip": "Forms\\MainForm.cs",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAgwG8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-19T16:50:31.962Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T18:25:22.28Z"
             }
           ]
         }

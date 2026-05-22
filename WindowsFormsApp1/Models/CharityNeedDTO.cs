@@ -55,7 +55,7 @@ namespace WindowsFormsApp1.Models
                 {
                     case 0: return "عاجل جداً";
                     case 1: return "مرتفعة";
-                    case 2: return "عادية";
+                    case 2: return "متوسطة";
                     case 3: return "منخفضة";
                     default: return "غير محدد";
                 }
